@@ -1,11 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:bpm_app/analyzer.dart';
 import 'package:bpm_app/history.dart';
 import 'package:bpm_app/tapper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({super.key});
@@ -15,9 +14,10 @@ class InitialPage extends StatefulWidget {
 }
 
 class _InitialPageState extends State<InitialPage> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
+
   final List<Widget> _widgetOptions = <Widget>[
-    Tapper(),
+    const Tapper(),
     const Analyzer(),
     const History(),
   ];
@@ -27,7 +27,7 @@ class _InitialPageState extends State<InitialPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions.elementAt(selectedIndex),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -59,18 +59,25 @@ class _InitialPageState extends State<InitialPage> {
                 ),
                 GButton(
                   icon: LineIcons.microphone,
-                  text: 'Listen',
+                  text: 'Analyzer',
                 ),
                 GButton(
                   icon: LineIcons.history,
                   text: 'History',
                 ),
               ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
+              selectedIndex: selectedIndex,
+              onTabChange: (index) async {
                 setState(() {
-                  _selectedIndex = index;
+                  selectedIndex = index;
                 });
+
+                if (selectedIndex == 1 &&
+                    await Permission.microphone.status.isDenied) {
+                  await Permission.microphone.request();
+                } else {
+                  print(await Permission.microphone.status);
+                }
               },
             ),
           ),

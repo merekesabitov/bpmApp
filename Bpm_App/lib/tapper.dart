@@ -9,30 +9,31 @@ class Tapper extends StatefulWidget {
 
 class TapperState extends State<Tapper> {
   int tapCount = 0;
-  double _bpm = 0;
+  double bpm = 0;
   DateTime? lastTapTime;
 
   void _onTap() {
     DateTime now = DateTime.now();
 
     if (lastTapTime != null) {
-      double timeElapsed = now.difference(lastTapTime!).inMilliseconds / 1000;
+      double timeElapsed = now.difference(lastTapTime ?? now).inMilliseconds / 1000;
       double newBPM = 60 / timeElapsed;
-      setState(() {
-        _bpm = newBPM;
-      });
+
+      // Weighted average to smooth out BPM changes
+      bpm = (bpm * tapCount + newBPM) / (tapCount + 1);
     }
 
     setState(() {
       tapCount++;
-      lastTapTime = now;
     });
+
+    lastTapTime = now;
   }
 
   void _reset() {
     setState(() {
       tapCount = 0;
-      _bpm = 0;
+      bpm = 0;
       lastTapTime = null;
     });
   }
@@ -53,7 +54,7 @@ class TapperState extends State<Tapper> {
             ),
             const SizedBox(height: 20),
             Text(
-              '${_bpm.round()} BPM',
+              '${bpm.round()} BPM',
               style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
