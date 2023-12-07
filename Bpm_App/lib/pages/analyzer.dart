@@ -45,11 +45,11 @@ class _AnalyzerState extends State<Analyzer> {
         beatsCount++;
 
         // Update dynamic threshold with a weak filter
-        dynamicThreshold = 0.8 * dynamicThreshold + 0.2 * data.maxDecibel;
+        dynamicThreshold = 0.7 * dynamicThreshold + 0.3 * data.maxDecibel;
 
         print('Beat detected. Total Beats: ${beatTimes.length}');
 
-        if (beatsCount % 3 == 0) {
+        if (beatsCount % 2 == 0) {
           calculateAndDisplayBPM();
         }
       }
@@ -161,7 +161,7 @@ class _AnalyzerState extends State<Analyzer> {
 }
 
 const double MIN_TIME_BETWEEN_BEATS = 0.2;
-const double MAX_TIME_BETWEEN_BEATS = 1.5;
+const double MAX_TIME_BETWEEN_BEATS = 2.5;
 const int ANALYSIS_INTERVAL = 20;
-const int MIN_BEATS_FOR_BPM_CALCULATION = 4;
-const double DBC_THRESHOLD = 60.0; // Добавлен порог входа децибела
+const int MIN_BEATS_FOR_BPM_CALCULATION = 8;
+const double DBC_THRESHOLD = 40.0; // Добавлен порог входа децибела

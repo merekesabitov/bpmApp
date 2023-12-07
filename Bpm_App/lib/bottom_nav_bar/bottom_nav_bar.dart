@@ -1,6 +1,6 @@
-import 'package:bpm_app/analyzer.dart';
-import 'package:bpm_app/history.dart';
-import 'package:bpm_app/tapper.dart';
+import 'package:bpm_app/pages/analyzer.dart';
+import 'package:bpm_app/pages/history.dart';
+import 'package:bpm_app/pages/tapper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
