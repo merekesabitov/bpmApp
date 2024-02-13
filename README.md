@@ -1,7 +1,6 @@
 ## BPM App
 BPM App - is an easy-to-use and minimalistic application for musicians with a metronome, where they can measure the tempo (bpm) of music or any other sound by tapping on the screen, as well as save their measurements.
 
-## Illustrations
 <p align="center">
       <img src="https://i.ibb.co.com/F0yZpgq/Tapper.png" width="726">
 </p>
